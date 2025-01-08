@@ -62,7 +62,7 @@ function App() {
           transactionInfo: {
             totalPriceStatus: "FINAL",
             totalPriceLabel: "Total",
-            totalPrice: "12.99",
+            totalPrice: "0.01",
             currencyCode: "USD",
             countryCode: "US",
           },
