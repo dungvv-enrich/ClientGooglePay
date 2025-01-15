@@ -1,6 +1,6 @@
 import "./App.css"
 import GooglePayButton from "@google-pay/button-react"
-
+import ApplePayButton from "./ApplePayButton"
 const shippingOptions = [
   {
     id: "free",
@@ -107,6 +107,7 @@ function App() {
         //   return {}
         // }}
       />
+      <ApplePayButton />
     </div>
   )
 }
