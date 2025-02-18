@@ -1,25 +1,19 @@
 import "./App.css"
-import GooglePayButton from "@google-pay/button-react"
+// import GooglePayButton from "@google-pay/button-react"
 import ApplePayButton from "./ApplePayButton"
-// const shippingOptions = [
-//   {
-//     id: "free",
-//     label: "Free shipping",
-//     description: "Arrives in 5 to 7 days",
-//     price: "0.00",
-//   },
-//   {
-//     id: "express",
-//     label: "Express shipping",
-//     description: "$5.00 - Arrives in 1 to 3 days",
-//     price: "5.00",
-//   },
-// ]
+
 function App() {
-  const environment = "TEST" //'PRODUCTION'
+  const urlParams = new URLSearchParams(window.location.search)
+  const amount = urlParams.get("amount") || "1.00" // Mặc định 1.00 USD
+  const paymentKey = urlParams.get("key") || "BCR2DN4T262MZ6IX"
+
+  console.log("Amount:", amount)
+  console.log("Key:", paymentKey)
+
+  //const environment = "PRODUCTION" //'PRODUCTION'
   return (
     <div className='App'>
-      <GooglePayButton
+      {/* <GooglePayButton
         environment={environment}
         paymentRequest={{
           apiVersion: 2,
@@ -44,15 +38,15 @@ function App() {
               tokenizationSpecification: {
                 type: "PAYMENT_GATEWAY",
                 parameters: {
-                  gateway: "example",
-                  gatewayMerchantId: "DCR2DFGGHP7EJS",
+                  gateway: "Test01",
+                  gatewayMerchantId: "BCR2DN4T262MZ6IX",
                 },
               },
             },
           ],
           merchantInfo: {
-            // merchantId: "12345678901234567890",
-            merchantName: "example",
+            merchantId: "BCR2DN4T77JMJTI6",
+            merchantName: "New Dzung",
           },
           shippingAddressParameters: {
             phoneNumberRequired: false,
@@ -66,47 +60,20 @@ function App() {
             currencyCode: "USD",
             countryCode: "US",
           },
-          // callbackIntents: ["PAYMENT_AUTHORIZATION"],
-          // shippingAddressRequired: true,
-          // shippingOptionParameters: {
-          //   defaultSelectedOptionId: "free",
-          //   shippingOptions: shippingOptions.map(o => ({
-          //     id: o.id,
-          //     label: o.label,
-          //     description: o.description,
-          //   })),
-          // },
-          // shippingOptionRequired: true,
         }}
-        //existingPaymentMethodRequired={true} //setup khi product
-        buttonColor={"black"}
-        // buttonLocale={"en"}
+        buttonColor={"default"}
+        buttonLocale={"en"}
         buttonType={"buy"}
         buttonRadius={20}
         onLoadPaymentData={paymentRequest => {
           console.log("load payment data", paymentRequest)
+          alert("Payment Successful!")
         }}
-        // onPaymentAuthorized={paymentData => ({
-        //   transactionState: "ERROR",
-        //   error: {
-        //     reason: "PAYMENT_DATA_INVALID",
-        //     message: "Insufficient funds",
-        //     intent: "PAYMENT_AUTHORIZATION",
-        //   },
-        // })}
-        // onPaymentDataChanged={paymentData => {
-        //   if (paymentData.shippingAddress?.countryCode === "US") {
-        //     return {
-        //       error: {
-        //         reason: "SHIPPING_ADDRESS_UNSERVICEABLE",
-        //         message: "Cannot ship to the United States of America",
-        //         intent: "SHIPPING_ADDRESS",
-        //       },
-        //     }
-        //   }
-        //   return {}
-        // }}
-      />
+        onError={error => {
+          console.error("Payment Error:", error)
+          alert("Payment Failed!")
+        }}
+      /> */}
       <ApplePayButton />
     </div>
   )

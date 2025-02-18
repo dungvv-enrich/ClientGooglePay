@@ -1,14 +1,12 @@
-// ApplePayButton.jsx
-import React, { useEffect, useState } from "react"
+// import React, { useEffect } from "react"
 
 const ApplePayButton = () => {
-  const [canUseApplePay, setCanUseApplePay] = useState(false)
-
-  useEffect(() => {
-    if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
-      setCanUseApplePay(true)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
+  //     // setCanUseApplePay(true)
+  //     console.log("true")
+  //   }
+  // }, [])
 
   const handleApplePay = async () => {
     const paymentRequest = {
@@ -64,19 +62,19 @@ const ApplePayButton = () => {
       const update = {}
       session.completeShippingContactSelection(update)
     }
-    // session.onpaymentauthorized = event => {
-    //   console.log("Payment Authorized: ", event.payment)
+    session.onpaymentauthorized = event => {
+      console.log("Payment Authorized: ", event.payment)
 
-    //   // Mô phỏng việc gửi tới backend
-    //   setTimeout(() => {
-    //     const isSuccess = true // Có thể mô phỏng trạng thái giao dịch tại đây
-    //     session.completePayment(
-    //       isSuccess
-    //         ? window.ApplePaySession.STATUS_SUCCESS
-    //         : window.ApplePaySession.STATUS_FAILURE
-    //     )
-    //   }, 1000)
-    // }
+      //   // Mô phỏng việc gửi tới backend
+      setTimeout(() => {
+        const isSuccess = true // Có thể mô phỏng trạng thái giao dịch tại đây
+        session.completePayment(
+          isSuccess
+            ? window.ApplePaySession.STATUS_SUCCESS
+            : window.ApplePaySession.STATUS_FAILURE
+        )
+      }, 1000)
+    }
 
     // session.begin()
     // }
@@ -94,6 +92,7 @@ const ApplePayButton = () => {
       }
       // Define ApplePayCouponCodeUpdate
       const calculateNewTotal = couponCode => {
+        console.log({ couponCode })
         // Mock implementation of calculating new total based on coupon code
         return {
           label: "New Total",
@@ -125,6 +124,7 @@ const ApplePayButton = () => {
     }
 
     session.oncancel = event => {
+      console.log("event: ", event)
       // Payment canceled by WebKit
     }
     session.begin()
@@ -132,7 +132,7 @@ const ApplePayButton = () => {
 
   return (
     <div>
-      {canUseApplePay ? (
+      {true ? (
         <button
           onClick={handleApplePay}
           style={{
